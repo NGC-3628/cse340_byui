@@ -1,0 +1,156 @@
+/* --- VARIABLES DE DISEÑO --- */
+:root {
+    --primary: #1a2a6c;     /* Azul oscuro elegante */
+    --accent: #4a90e2;      /* Azul brillante para detalles */
+    --bg-body: #f0f4f8;     /* Fondo grisáceo muy suave */
+    /*--white: #ffffff; */
+    --text-dark: #333333;
+    --text-light: #ffffff;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* --- RESET Y BASE --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* --- HEADER Y NAVEGACIÓN (CORREGIDO) --- */
+header {
+    background-color: var(--primary);
+    padding: 1rem 0;
+    box-shadow: var(--shadow);
+}
+
+nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que el menú baje si no hay espacio */
+}
+
+nav .logo a {
+    color: var(--white);
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 5px; /* Espacio entre botones */
+}
+
+nav a {
+    color: var(--white) !important; /* FORZAMOS COLOR BLANCO SIEMPRE */
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+    display: block;
+}
+
+/* Efecto al pasar el mouse o tocar en móvil */
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--white);
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: 70vh;
+}
+
+h1 {
+    margin-bottom: 25px;
+    color: var(--primary);
+    font-size: 2rem;
+    text-align: center;
+}
+
+h2 {
+    margin: 20px 0;
+    color: var(--accent);
+}
+
+/* --- GRID DE TARJETAS (Organizations/Projects) --- */
+ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    list-style: none;
+    margin-top: 20px;
+}
+
+li {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+    border-top: 4px solid var(--accent); /* Detalle de color arriba */
+}
+
+li:hover {
+    transform: translateY(-5px);
+}
+
+li img {
+    max-width: 80px;
+    height: auto;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* --- FOOTER --- */
+footer {
+    background: var(--primary);
+    color: var(--white);
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 60px;
+}
+
+.footer p {
+    color:#ffffff
+}
+
+/* --- AJUSTES PARA MÓVILES --- */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column; /* Logo arriba, menú abajo */
+        text-align: center;
+    }
+
+    nav ul {
+        margin-top: 15px;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        font-size: 0.9rem;
+        padding: 12px 10px; /* Botones más fáciles de tocar */
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+}

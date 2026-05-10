@@ -1,0 +1,24 @@
+{
+  "name": "cse230_init",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/NGC-3628/cse340_byui#readme",
+  "bugs": {
+    "url": "https://github.com/NGC-3628/cse340_byui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NGC-3628/cse340_byui.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^5.0.2",
+    "express": "^5.2.1"
+  }
+}
