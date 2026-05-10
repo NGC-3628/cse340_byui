@@ -45,11 +45,14 @@ app.get('/projects', async (req, res) => {
     res.render('projects', { title });
 });
 
+<<<<<<< HEAD
 app.get('/categories', async (req, res) => {
     const title = 'Categories';
     res.render('categories', { title });    
 });
 
+=======
+>>>>>>> 83fe34554db75f69930626b83a1777604c917878
 app.get('/', (req, res) => {
   res.send('Hello from Express!');
 });
