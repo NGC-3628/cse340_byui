@@ -4,21 +4,17 @@
     <h1><%= title %></h1>
 
     <ul>
-        <li>
-            <img src="/images/brightfuture-logo.png" alt="BrightFuture Builders logo">
-            <strong>BrightFuture Builders</strong>
-            <p>info@brightfuture.org</p>
-        </li>
-        <li>
-            <img src="/images/greenharvest-logo.png" alt="GreenHarvest Growers logo">
-            <strong>GreenHarvest Growers</strong>
-            <p>contact@greenharvest.org</p>
-        </li>
-        <li>
-            <img src="/images/unityserve-logo.png" alt="UnityServe Volunteers logo">
-            <strong>UnityServe Volunteers</strong>
-            <p>hello@unityserve.org</p>
-        </li>
+        <% if (organizations && organizations.length > 0) { %>
+            <% organizations.forEach(org => { %>
+                <li>
+                    <img src="/images/<%= org.logo_filename %>" alt="<%= org.name %> logo">
+                    <strong><%= org.name %></strong>
+                    <p><%= org.contact_email %></p>
+                </li>
+            <% }); %>
+        <% } else { %>
+            <li>No organizations found.</li>
+        <% } %>
     </ul>
 </main>
 
