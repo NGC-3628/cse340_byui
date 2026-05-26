@@ -55,6 +55,12 @@ UPDATE Organizations
 SET email = 'nuevo_correo@unityserve.org' 
 WHERE organization_id = 2;
 
+CREATE TABLE Project_Categories (
+    project_id INT REFERENCES Projects(project_id) ON DELETE CASCADE,
+    category_id INT REFERENCES Categories(id) ON DELETE CASCADE,
+    PRIMARY KEY (project_id, category_id)
+);
+
 
 
 

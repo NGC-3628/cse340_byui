@@ -4,12 +4,20 @@
     <h1><%= title %></h1>
     
     <h2>Explore our service categories:</h2>
-        <ul>
-            <li>Environmental</li>
-            <li>Educational</li>
-            <li>Community Service</li>
-            <li>Health & Wellness</li>
-        </ul>
+    <ul>
+        <% if (categories && categories.length > 0) { %>
+            <% categories.forEach(category => { %>
+                <li>
+                    <strong><%= category.name %></strong>
+                    <% if (category.description) { %>
+                        <p><%= category.description %></p>
+                    <% } %>
+                </li>
+            <% }); %>
+        <% } else { %>
+            <li>No categories found.</li>
+        <% } %>
+    </ul>
 </main>
 
 <%- include('partials/footer') %>
