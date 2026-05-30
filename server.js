@@ -1,24 +1,20 @@
+import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import dotenv from "dotenv";
 dotenv.config();
 
 import { testConnection } from './src/models/db.js';
-import { getAllOrganizations } from './src/models/organizations.js';
-import { getAllCategories } from './src/models/categories.js';
+import router from './src/routes.js';
 
+// Define the application environment
+const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'development';
+// Define the port number the server will listen on
+const PORT = process.env.PORT || 3000;
 
-import express from 'express';
-
-
-
-const NODE_ENV = process.env.NODE_ENV || 'development';
-const PORT = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
-
-
 
 /**
   * Configure Express middleware
@@ -27,55 +23,56 @@ const app = express();
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
 
 // Tell Express where to find your templates
 app.set('views', path.join(__dirname, 'src/views'));
 
-
-
-
-/**
- * Routes
- */
-app.get('/', async (req, res) => {
-    const title = 'Home';
-    res.render('home', { title });
-});
-
-app.get('/organizations', async (req, res) => {
-    const organizations = await getAllOrganizations();
-    console.log(organizations);
-      
-    const title = 'Our Partner Organizations';
-    res.render('organizations', { title, organizations });
-});
-
-app.get('/projects', async (req, res) => {
-    const title = 'Service Projects';
-    res.render('projects', { title });
-});
-
-/*app.get('/categories', async (req, res) => {
-    const title = 'Categories';
-    res.render('categories', { title });    
-});
-*/
-app.get('/categories', async (req, res) => {
-    try {
-        const categories = await getAllCategories(); // Obtiene las categorías de la BD
-        const title = 'Categories';
-        
-        // El truco está aquí: pasamos tanto el title como el arreglo de categories
-        res.render('categories', { title, categories });    
-    } catch (error) {
-        console.error('Error al obtener las categorías:', error);
-        res.status(500).send('Error interno del servidor');
+// Middleware to log all incoming requests
+app.use((req, res, next) => {
+    if (NODE_ENV === 'development') {
+        console.log(`${req.method} ${req.url}`);
     }
+    next(); // Pass control to the next middleware or route
 });
 
+// Middleware to make NODE_ENV available to all templates
+app.use((req, res, next) => {
+    res.locals.NODE_ENV = NODE_ENV;
+    next();
+});
+
+// Use the imported router to handle routes
+app.use(router);
+
+// Catch-all route for 404 errors
+app.use((req, res, next) => {
+    const err = new Error('Page Not Found');
+    err.status = 404;
+    next(err);
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+    // Log error details for debugging
+    console.error('Error occurred:', err.message);
+    console.error('Stack trace:', err.stack);
+    
+    // Determine status and template
+    const status = err.status || 500;
+    const template = status === 404 ? '404' : '500';
+    
+    // Prepare data for the template
+    const context = {
+        title: status === 404 ? 'Page Not Found' : 'Server Error',
+        error: err.message,
+        stack: err.stack
+    };
+    
+    // Render the appropriate error template
+    res.status(status).render(`errors/${template}`, context);
+});
 
 app.listen(PORT, async () => {
   try {
@@ -86,5 +83,3 @@ app.listen(PORT, async () => {
     console.error('Error connecting to the database:', error);
   }
 });
-
-
