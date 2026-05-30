@@ -2,12 +2,20 @@
 
 <main>
     <h1><%= title %></h1>
+    <p>Here are the next 5 upcoming service projects:</p>
 
-        <ul>
-            <li>Park Cleanup - Join us to clean up local parks and make them beautiful!</li>
-            <li>Food Drive - Help collect and distribute food to those in need.</li>
-            <li>Community Tutoring - Volunteer to tutor students in various subjects.</li>
-        </ul>
+    <ul>
+        <% if (projects && projects.length > 0) { %>
+            <% projects.forEach(project => { %>
+                <li>
+                    <a href="/project/<%= project.project_id %>"><strong><%= project.title %></strong></a>
+                    - Hosted by: <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a>
+                </li>
+            <% }); %>
+        <% } else { %>
+            <li>No upcoming projects found.</li>
+        <% } %>
+    </ul>
 </main>
 
 <%- include('partials/footer') %>

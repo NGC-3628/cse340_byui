@@ -8,7 +8,7 @@
         <% if (categories && categories.length > 0) { %>
             <% categories.forEach(category => { %>
                 <li>
-                    <strong><%= category.name %></strong>
+                    <a href="/category/<%= category.id %>"><strong><%= category.name %></strong></a>
                     <% if (category.description) { %>
                         <p><%= category.description %></p>
                     <% } %>

@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<main>
+    <h1><%= title %></h1>
+    
+    <p><strong>Host Organization:</strong> <a href="/organization/<%= projectDetails.organization_id %>"><%= projectDetails.organization_name %></a></p>
+    
+    <% if(projectDetails.location) { %><p><strong>Location:</strong> <%= projectDetails.location %></p><% } %>
+    <% if(projectDetails.date) { %><p><strong>Date:</strong> <%= projectDetails.date %></p><% } %>
+    
+    <p><strong>Description:</strong> <%= projectDetails.description %></p>
+
+    <h3>Categories</h3>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <% if (categories && categories.length > 0) { %>
+            <% categories.forEach(category => { %>
+                <a href="/category/<%= category.id %>" style="background-color: var(--accent); color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 0.9em;">
+                    <%= category.name %>
+                </a>
+            <% }); %>
+        <% } else { %>
+            <p>No categories tagged.</p>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/footer') %>
