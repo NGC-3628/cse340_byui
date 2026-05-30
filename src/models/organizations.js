@@ -33,3 +33,10 @@ const getOrganizationDetails = async (organizationId) => {
 
 // Export the model functions
 export { getAllOrganizations, getOrganizationDetails };
+
+//it calls information from DB or DB function, which is at the same time called or used in the file db.js, which is the file that connects to the database and makes queries.
+//Then we got constant getAllOrganizations it is as synchronous constant and it has DB well we used to be, which is also the same time stated from get to function, and we also use a constant query, and it has the columns and draws from the database
+//Then we have the result, which is also a constant, and it has the query, which is also a constant, and it has the query as an argument, and then we return the result rows, which is the data that we get from the database.
+//Then we have the getOrganizationDetails, which is also a constant, and it is as asynchronous, and it has the DB, which is also a constant, and it has the query, which is also a constant, and it has the SQL query to get the organization details based on the organization ID, 
+// and then we have the query parameters, which is also a constant, and it has the organization ID as an argument, and then we execute the query with the parameters, and then we return the first row of the result set, or null if no rows are found. Finally, 
+// we export the model functions so that they can be used in other parts of the application.

@@ -20,3 +20,10 @@ const showOrganizationDetailsPage = async (req, res) => {
 
 // export controlller functions
 export { showOrganizationsPage, showOrganizationDetailsPage };
+/*
+the extraction of specific parameters from the request object 
+(like req.params.id) and the use of model functions to fetch data from the database,
+which is then passed to the view for rendering.
+for example, in the showOrganizationDetailsPage function, we extract the organization ID from the request parameters, 
+use it to fetch the organization details and related projects from the database, and then render the organization details page with that data.
+*/

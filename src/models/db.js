@@ -103,7 +103,10 @@ const createDbWrapper = () => {
     }
 };
 
-let db = null;
+let db = null; // why is db null? 
+// We will initialize it lazily when the first query is made. 
+// This allows us to avoid creating a connection pool before we have the database URL configured, 
+// which can be helpful in certain deployment environments. 
 
 /**
  * Tests the database connection by executing a simple query.

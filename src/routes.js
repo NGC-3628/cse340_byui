@@ -12,10 +12,10 @@ router.get('/organizations', showOrganizationsPage);
 router.get('/organization/:id', showOrganizationDetailsPage);
 
 router.get('/projects', showProjectsPage);
-router.get('/project/:id', showProjectDetailsPage); // NEW
+router.get('/project/:id', showProjectDetailsPage); 
 
 router.get('/categories', showCategoriesPage);
-router.get('/category/:id', showCategoryDetailsPage); // NEW
+router.get('/category/:id', showCategoryDetailsPage); 
 
 // error-handling routes
 router.get('/test-error', testErrorPage);
