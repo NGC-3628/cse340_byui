@@ -1,8 +1,8 @@
-// import any needed model functions
-import { getAllOrganizations, getOrganizationDetails } from '../models/organizations.js';
+// Import any needed model functions
+import { getAllOrganizations, getOrganizationDetails, createOrganization } from '../models/organizations.js';
 import { getProjectsByOrganizationId } from '../models/projects.js';
 
-// defines any controller functions
+// Defines any controller functions
 const showOrganizationsPage = async (req, res) => {
     const organizations = await getAllOrganizations();
     const title = 'Our Partner Organizations';
@@ -18,19 +18,24 @@ const showOrganizationDetailsPage = async (req, res) => {
     res.render('organization', {title, organizationDetails, projects});
 };
 
-
 const showNewOrganizationForm = async (req, res) => {
     const title = 'Add New Organization';
-
     res.render('new-organization', { title });
 }
 
-// export controlller functions
-export { showOrganizationsPage, showOrganizationDetailsPage };
-/*
-the extraction of specific parameters from the request object 
-(like req.params.id) and the use of model functions to fetch data from the database,
-which is then passed to the view for rendering.
-for example, in the showOrganizationDetailsPage function, we extract the organization ID from the request parameters, 
-use it to fetch the organization details and related projects from the database, and then render the organization details page with that data.
-*/
+const processNewOrganizationForm = async (req, res) => {
+    const { name, description, contactEmail } = req.body;
+    const logoFilename = 'placeholder-logo.png'; 
+
+    const organizationId = await createOrganization(name, description, contactEmail, logoFilename);
+    
+    // Set a success flash message!
+    req.flash('success', 'Organization added successfully!');
+    
+    res.redirect(`/organization/${organizationId}`);
+};
+
+// Export all controller functions
+export { showOrganizationsPage, showOrganizationDetailsPage, showNewOrganizationForm, processNewOrganizationForm };
+
+

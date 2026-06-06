@@ -3,6 +3,8 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import dotenv from "dotenv";
 dotenv.config();
+import session from 'express-session';
+import flash from './src/middleware/flash.js';
 
 import { testConnection } from './src/models/db.js';
 import router from './src/routes.js';
@@ -16,10 +18,30 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
 
+const SESSION_SECRET = process.env.SESSION_SECRET;
+
+// Set up session management
+app.use(session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000 } // Session expires after 1 hour of inactivity
+}));
+
+// Use flash message middleware
+app.use(flash);
+
+
 /**
   * Configure Express middleware
   */
 
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
