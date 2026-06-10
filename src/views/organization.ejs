@@ -1,25 +1,27 @@
 <%- include('partials/header') %>
 
 <main>
-    <h1><%= title %></h1>
+    <h1><%= organizationDetails.name %></h1>
+    
+    <img src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo" style="max-width: 150px;">
+    
+    <p><%= organizationDetails.description %></p>
+    <p><strong>Contact:</strong> <%= organizationDetails.contact_email %></p>
 
-    <p>Here are a few of our partner organizations:</p>
+    <h2>Projects</h2>
     <ul>
-        <% if (organizations && organizations.length > 0) { %>
-            <% organizations.forEach(organization => { %>
+        <% if (projects && projects.length > 0) { %>
+            <% projects.forEach(project => { %>
                 <li>
-                    <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
-                    <a href="/organization/<%= organization.organization_id %>"><strong><%= organization.name %></strong></a>
-                    <p><%= organization.contact_email %></p>
+                    <a href="/project/<%= project.project_id %>"><%= project.title %></a>
                 </li>
             <% }); %>
         <% } else { %>
-            <li>No organizations found.</li>
+            <li>No projects currently listed for this organization.</li>
         <% } %>
     </ul>
-    
-    <p><a href="/new-organization">Add a new organization</a></p>
-    
+    <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a></p>
+    <p><a href="/organizations">&larr; Back to all organizations</a></p>
 </main>
 
 <%- include('partials/footer') %>
