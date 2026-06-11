@@ -9,6 +9,12 @@
     <div style="text-align: center; margin-top: 40px;">
         <img class="main-logo" src="images/cse340-service-network.png" alt="CSE 340 Service Network Logo">
     </div>
+
+    <% if (isLoggedIn) { %>
+        <div style="text-align: center; margin-top: 30px;">
+            <p><a href="/dashboard" style="font-weight: bold; font-size: 1.1rem;">My Dashboard</a></p>
+        </div>
+    <% } %>
 </main>
 
 <%- include('partials/footer') %>
