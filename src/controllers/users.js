@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { createUser, authenticateUser } from '../models/users.js'; 
+import { createUser, authenticateUser, getAllUsers } from '../models/users.js'; 
 const showUserRegistrationForm = (req, res) => {
     res.render('register', { title: 'Register' });
 };
@@ -77,7 +77,41 @@ const showDashboard = (req, res) => {
     res.render('dashboard', { 
         title: 'Dashboard',
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role_name // <-- Pasamos el rol a la vista
     });
 };
-export { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard };
+
+const requireRole = (requiredRole) => {
+    return (req, res, next) => {
+        // Primero verificamos si hay sesión (por seguridad extra)
+        if (!req.session || !req.session.user) {
+            req.flash('error', 'You must be logged in to access that page.');
+            return res.redirect('/login');
+        }
+        
+        // Verificamos si el rol coincide
+        if (req.session.user.role_name !== requiredRole) {
+            req.flash('error', 'Access denied. You do not have permission to view that page.');
+            return res.redirect('/dashboard');
+        }
+        
+        next();
+    };
+};
+
+const showUsersList = async (req, res) => {
+    try {
+        const users = await getAllUsers();
+        res.render('users', { 
+            title: 'Manage Users', 
+            users: users 
+        });
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        req.flash('error', 'An error occurred while loading the users list.');
+        res.redirect('/dashboard');
+    }
+};
+
+export { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard, requireRole, showUsersList };

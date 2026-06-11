@@ -14,7 +14,7 @@ import {
 import { showProjectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidation, showEditProjectForm, processEditProjectForm } from './controllers/projects.js';
 import { showCategoriesPage, showCategoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm, showNewCategoryForm, processNewCategoryForm, showEditCategoryForm, processEditCategoryForm, categoryValidation } from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
-import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard } from './controllers/users.js';
+import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard, requireRole, showUsersList } from './controllers/users.js';
 
 
 
@@ -71,6 +71,9 @@ router.get('/logout', processLogout);
 //dashboard
 router.get('/dashboard', requireLogin, showDashboard);
 
+
+// Admin ONLY routes
+router.get('/users', requireLogin, requireRole('admin'), showUsersList);
 
 // error-handling routes
 router.get('/test-error', testErrorPage);
