@@ -151,3 +151,15 @@ JOIN roles r ON u.role_id = r.role_id;
 
 -- Delete the test user to clean up the database
 DELETE FROM users WHERE email = 'test@example.com';
+
+
+
+
+-- week 6
+
+CREATE TABLE IF NOT EXISTS project_volunteers (
+    user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+    project_id INTEGER REFERENCES projects(project_id) ON DELETE CASCADE,
+    signup_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, project_id) 
+);
