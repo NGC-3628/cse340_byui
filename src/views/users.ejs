@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+<main>
+    <h1><%= title %></h1>
+
+    <p>Below is a list of all registered users in the system.</p>
+
+    <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px; text-align: left;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th>Name</th>
+                <th>Email (Username)</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td>
+                        <span style="padding: 3px 8px; border-radius: 3px; font-size: 0.9em; 
+                            background-color: <%= user.role_name === 'admin' ? '#ffebee' : '#e8f5e9' %>; 
+                            color: <%= user.role_name === 'admin' ? '#c62828' : '#2e7d32' %>;">
+                            <%= user.role_name %>
+                        </span>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    
+    <div style="margin-top: 20px;">
+        <a href="/dashboard">← Back to Dashboard</a>
+    </div>
+</main>
+<%- include('partials/footer') %>
