@@ -1,41 +1,15 @@
-<%- include('partials/header') %>
-
-<main>
-    <h1><%= title %></h1>
-    
-    <p><strong>Host Organization:</strong> <a href="/organization/<%= projectDetails.organization_id %>"><%= projectDetails.organization_name %></a></p>
-    
-    <% if(projectDetails.location) { %><p><strong>Location:</strong> <%= projectDetails.location %></p><% } %>
-    <% if(projectDetails.date) { %><p><strong>Date:</strong> <%= projectDetails.date %></p><% } %>
-    
-    <p><strong>Description:</strong> <%= projectDetails.description %></p>
-
-    <h3>Categories</h3>
-    <div style="margin: 20px 0; padding: 15px; border-radius: 8px; background-color: var(--bg-body); border-left: 4px solid var(--accent);">
+<div class="volunteer-action-box">
         <% if (isLoggedIn) { %>
             <% if (isVolunteering) { %>
-                <p style="color: #2e7d32; font-weight: bold; margin-bottom: 10px;">✓ You are volunteering for this project.</p>
-                <p><a href="/project/<%= projectDetails.project_id %>/unvolunteer" style="color: #d32f2f; text-decoration: none; font-weight: bold;">Cancel Volunteering</a></p>
+                <div class="volunteer-status-active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    You are volunteering for this project.
+                </div>
+                <a href="/project/<%= projectDetails.project_id %>/unvolunteer" class="btn-danger-text">Cancel Volunteering</a>
             <% } else { %>
-                <p><a href="/project/<%= projectDetails.project_id %>/volunteer" style="background-color: var(--accent); color: white; padding: 10px 15px; border-radius: 6px; text-decoration: none; display: inline-block;">Volunteer for this Project</a></p>
+                <a href="/project/<%= projectDetails.project_id %>/volunteer" class="btn-primary">Volunteer for this Project</a>
             <% } %>
         <% } else { %>
-            <p><em>Please <a href="/login">log in</a> to volunteer for this project.</em></p>
+            <p><em>Please <a href="/login" style="color: var(--accent); font-weight: bold;">log in</a> to volunteer for this project.</em></p>
         <% } %>
     </div>
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <% if (categories && categories.length > 0) { %>
-            <% categories.forEach(category => { %>
-                <a href="/category/<%= category.id %>" style="background-color: var(--accent); color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 0.9em;">
-                    <%= category.name %>
-                </a>
-            <% }); %>
-        <% } else { %>
-            <p>No categories tagged.</p>
-        <% } %>
-    </div>
-    <p><a href="/assign-categories/<%= projectDetails.project_id %>">Edit Categories</a></p>
-    <p><a href="/edit-project/<%= projectDetails.project_id %>">Edit Project</a></p>
-</main>
-
-<%- include('partials/footer') %>

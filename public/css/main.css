@@ -186,3 +186,123 @@ footer {
     background-color: #d1ecf1;
     border-color: #bee5eb;
 }
+
+
+/*
+                NEW PART
+*/
+/* ==========================================================================
+   Volunteer Feature Styles
+   ========================================================================== */
+
+/* Project Details: Volunteer Action Box */
+.volunteer-action-box {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background-color: #f8f9fa; /* Light gray background */
+    border-left: 5px solid var(--accent, #007bff); /* Fallback to blue if variable is missing */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.volunteer-status-active {
+    color: #28a745; /* Success green */
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Professional Buttons */
+.btn-primary {
+    display: inline-block;
+    background-color: var(--accent, #007bff);
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker shade for hover */
+    transform: translateY(-1px);
+    color: #ffffff;
+}
+
+.btn-danger-text {
+    color: #dc3545; /* Danger red */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+
+.btn-danger-text:hover {
+    color: #a71d2a;
+    text-decoration: underline;
+}
+
+/* Dashboard: Volunteer Commitments List */
+.dashboard-commitments {
+    margin-top: 2.5rem;
+}
+
+.commitment-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr; /* Keep it a single column for readability */
+}
+
+.commitment-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.commitment-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-color: #cccccc;
+}
+
+.commitment-title {
+    font-size: 1.3rem;
+    color: var(--primary, #333333);
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.commitment-title:hover {
+    text-decoration: underline;
+}
+
+.commitment-meta {
+    color: #666666;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.empty-state {
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+    color: #555555;
+    border: 1px dashed #cccccc;
+}
