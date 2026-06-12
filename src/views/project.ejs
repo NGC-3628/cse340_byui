@@ -11,6 +11,18 @@
     <p><strong>Description:</strong> <%= projectDetails.description %></p>
 
     <h3>Categories</h3>
+    <div style="margin: 20px 0; padding: 15px; border-radius: 8px; background-color: var(--bg-body); border-left: 4px solid var(--accent);">
+        <% if (isLoggedIn) { %>
+            <% if (isVolunteering) { %>
+                <p style="color: #2e7d32; font-weight: bold; margin-bottom: 10px;">✓ You are volunteering for this project.</p>
+                <p><a href="/project/<%= projectDetails.project_id %>/unvolunteer" style="color: #d32f2f; text-decoration: none; font-weight: bold;">Cancel Volunteering</a></p>
+            <% } else { %>
+                <p><a href="/project/<%= projectDetails.project_id %>/volunteer" style="background-color: var(--accent); color: white; padding: 10px 15px; border-radius: 6px; text-decoration: none; display: inline-block;">Volunteer for this Project</a></p>
+            <% } %>
+        <% } else { %>
+            <p><em>Please <a href="/login">log in</a> to volunteer for this project.</em></p>
+        <% } %>
+    </div>
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <% if (categories && categories.length > 0) { %>
             <% categories.forEach(category => { %>

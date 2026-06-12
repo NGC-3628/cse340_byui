@@ -1,4 +1,4 @@
-import { getAllProjects, getProjectDetails, createProject, updateProject } from '../models/projects.js';
+import { getAllProjects, getProjectDetails, createProject, updateProject, checkVolunteerStatus, addVolunteer, removeVolunteer } from '../models/projects.js';
 import { getCategoriesByProjectId } from '../models/categories.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
@@ -46,11 +46,17 @@ const showProjectDetailsPage = async (req, res) => {
     const projectDetails = await getProjectDetails(projectId);
     const categories = await getCategoriesByProjectId(projectId);
     
-    // If project not found, trigger 404
     if (!projectDetails) return res.status(404).render('errors/404', { title: 'Page Not Found' });
 
+    // Check if user is logged in and if they are volunteering
+    let isVolunteering = false;
+    if (req.session && req.session.user) {
+        isVolunteering = await checkVolunteerStatus(req.session.user.user_id, projectId);
+    }
+
     const title = projectDetails.title;
-    res.render('project', { title, projectDetails, categories });
+    // Pass 'isVolunteering' to the view
+    res.render('project', { title, projectDetails, categories, isVolunteering }); 
 };
 
 const showNewProjectForm = async (req, res) => {
@@ -124,6 +130,32 @@ const processEditProjectForm = async (req, res) => {
     }
 };
 
+const volunteerForProject = async (req, res) => {
+    const projectId = req.params.id;
+    const userId = req.session.user.user_id;
+    try {
+        await addVolunteer(userId, projectId);
+        req.flash('success', 'You are now volunteering for this project!');
+    } catch (error) {
+        req.flash('error', 'Error signing up for the project.');
+    }
+    res.redirect(`/project/${projectId}`);
+};
+
+const unvolunteerForProject = async (req, res) => {
+    const projectId = req.params.id;
+    const userId = req.session.user.user_id;
+    try {
+        await removeVolunteer(userId, projectId);
+        req.flash('success', 'You have been removed as a volunteer.');
+    } catch (error) {
+        req.flash('error', 'Error removing you from the project.');
+    }
+    // Redirects back to either the dashboard or the project page depending on where they clicked it
+    const referer = req.get('Referrer') || `/project/${projectId}`;
+    res.redirect(referer);
+};
+
 // --- EXPORTS ---
 export { 
     showProjectsPage, 
@@ -132,5 +164,7 @@ export {
     processNewProjectForm,
     showEditProjectForm,
     processEditProjectForm,
+    volunteerForProject, 
+    unvolunteerForProject,
     projectValidation 
 };

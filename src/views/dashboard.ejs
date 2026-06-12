@@ -6,7 +6,25 @@
     <p><strong>Name:</strong> <%= name %></p>
     <p><strong>Username:</strong> <%= email %></p>
     <p><strong>Role:</strong> <%= role %></p>
-
+    <div style="margin-top: 30px;">
+        <h3>My Volunteer Commitments</h3>
+        <% if (volunteeredProjects && volunteeredProjects.length > 0) { %>
+            <ul style="grid-template-columns: 1fr;"> <% volunteeredProjects.forEach(project => { %>
+                    <li style="margin-bottom: 15px;">
+                        <a href="/project/<%= project.project_id %>" style="font-size: 1.2rem; color: var(--primary);">
+                            <strong><%= project.title %></strong>
+                        </a>
+                        <p style="margin: 5px 0;"><%= new Date(project.date).toLocaleDateString() %> | <%= project.organization_name %></p>
+                        <p style="margin-top: 10px;">
+                            <a href="/project/<%= project.project_id %>/unvolunteer" style="color: #d32f2f; font-weight: bold; text-decoration: none;">Remove me as volunteer</a>
+                        </p>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } else { %>
+            <p style="padding: 15px; background: white; border-radius: 8px;">You haven't signed up for any projects yet. <a href="/projects">Find a project to help with!</a></p>
+        <% } %>
+    </div>
     <% if (role === 'admin') { %>
         <div style="margin-top: 30px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
             <h3>Admin Actions</h3>
