@@ -1,4 +1,28 @@
-<div class="dashboard-commitments">
+<%- include('partials/header') %>
+
+<main>
+    <h1><%= title %></h1>
+
+    <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 30px; border-top: 4px solid var(--primary);">
+        <h2 style="margin-top: 0; color: var(--primary);">Welcome, <%= name %>!</h2>
+        <p style="margin: 5px 0; color: #555;"><strong>Email:</strong> <%= email %></p>
+        <p style="margin: 5px 0; color: #555;">
+            <strong>Role:</strong> 
+            <span style="padding: 3px 10px; border-radius: 12px; font-size: 0.85em; font-weight: bold; background-color: <%= role === 'admin' ? '#ffebee' : '#e8f5e9' %>; color: <%= role === 'admin' ? '#c62828' : '#2e7d32' %>;">
+                <%= role.toUpperCase() %>
+            </span>
+        </p>
+    </div>
+
+    <% if (role === 'admin') { %>
+        <div style="background: #fff8f8; padding: 20px; border-radius: 8px; border-left: 5px solid #dc3545; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 30px;">
+            <h3 style="color: #dc3545; margin-top: 0; margin-bottom: 10px;">🛡️ Administrator Controls</h3>
+            <p style="margin-bottom: 15px; color: #555;">Manage system users, view roles, and update permissions.</p>
+            <a href="/users" class="btn-primary" style="background-color: #dc3545;">Manage Users</a>
+        </div>
+    <% } %>
+
+    <div class="dashboard-commitments">
         <h3 style="border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">My Volunteer Commitments</h3>
         
         <% if (volunteeredProjects && volunteeredProjects.length > 0) { %>
@@ -26,3 +50,6 @@
             </div>
         <% } %>
     </div>
+</main>
+
+<%- include('partials/footer') %>

@@ -1,36 +1,43 @@
 <%- include('partials/header') %>
 <main>
     <h1><%= title %></h1>
+    <p style="margin-bottom: 25px; color: #555;">Below is a list of all registered users in the system. As an administrator, you have permission to view this data.</p>
 
-    <p>Below is a list of all registered users in the system.</p>
-
-    <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; margin-top: 20px; text-align: left;">
-        <thead>
-            <tr style="background-color: #f2f2f2;">
-                <th>Name</th>
-                <th>Email (Username)</th>
-                <th>Role</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% users.forEach(user => { %>
+    <div style="overflow-x: auto; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead style="background-color: var(--primary); color: white;">
                 <tr>
-                    <td><%= user.name %></td>
-                    <td><%= user.email %></td>
-                    <td>
-                        <span style="padding: 3px 8px; border-radius: 3px; font-size: 0.9em; 
-                            background-color: <%= user.role_name === 'admin' ? '#ffebee' : '#e8f5e9' %>; 
-                            color: <%= user.role_name === 'admin' ? '#c62828' : '#2e7d32' %>;">
-                            <%= user.role_name %>
-                        </span>
-                    </td>
+                    <th style="padding: 15px 20px; font-weight: 600;">Name</th>
+                    <th style="padding: 15px 20px; font-weight: 600;">Email (Username)</th>
+                    <th style="padding: 15px 20px; font-weight: 600;">Role</th>
                 </tr>
-            <% }) %>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <% if (users && users.length > 0) { %>
+                    <% users.forEach(user => { %>
+                        <tr style="border-bottom: 1px solid #eee; transition: background-color 0.2s;">
+                            <td style="padding: 15px 20px;"><%= user.name %></td>
+                            <td style="padding: 15px 20px;"><%= user.email %></td>
+                            <td style="padding: 15px 20px;">
+                                <span style="padding: 5px 12px; border-radius: 20px; font-size: 0.85em; font-weight: bold; 
+                                    background-color: <%= user.role_name === 'admin' ? '#ffebee' : '#e8f5e9' %>; 
+                                    color: <%= user.role_name === 'admin' ? '#c62828' : '#2e7d32' %>;">
+                                    <%= user.role_name.toUpperCase() %>
+                                </span>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="3" style="padding: 20px; text-align: center; color: #777;">No users found.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
     
-    <div style="margin-top: 20px;">
-        <a href="/dashboard">← Back to Dashboard</a>
+    <div style="margin-top: 30px;">
+        <a href="/dashboard" class="btn-primary" style="background-color: #6c757d;">&larr; Back to Dashboard</a>
     </div>
 </main>
 <%- include('partials/footer') %>
