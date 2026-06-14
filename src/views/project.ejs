@@ -1,4 +1,24 @@
-<div class="volunteer-action-box">
+<%- include('partials/header') %>
+
+<main>
+    <h1><%= title %></h1>
+
+    <div class="project-details-card">
+        <p><strong>Location:</strong> <%= projectDetails.location %></p>
+        <p><strong>Date:</strong> <%= new Date(projectDetails.date).toLocaleDateString() %></p>
+        <p><strong>Organization:</strong> <a href="/organization/<%= projectDetails.organization_id %>"><%= projectDetails.organization_name %></a></p>
+        <p><strong>Description:</strong> <%= projectDetails.description %></p>
+        
+        <% if (categories && categories.length > 0) { %>
+            <p><strong>Categories:</strong> 
+                <% categories.forEach((cat, index) => { %>
+                    <span class="category-tag"><%= cat.name %></span><% if (index < categories.length - 1) %>, 
+                <% }); %>
+            </p>
+        <% } %>
+    </div>
+
+    <div class="volunteer-action-box">
         <% if (isLoggedIn) { %>
             <% if (isVolunteering) { %>
                 <div class="volunteer-status-active">
@@ -13,3 +33,8 @@
             <p><em>Please <a href="/login" style="color: var(--accent); font-weight: bold;">log in</a> to volunteer for this project.</em></p>
         <% } %>
     </div>
+    
+    <p><a href="/edit-project/<%= projectDetails.project_id %>">&larr; Edit Project</a></p>
+</main>
+
+<%- include('partials/footer') %>

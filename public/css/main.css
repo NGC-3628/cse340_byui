@@ -3,10 +3,11 @@
     --primary: #1a2a6c;     /* Azul oscuro elegante */
     --accent: #4a90e2;      /* Azul brillante para detalles */
     --bg-body: #f0f4f8;     /* Fondo grisáceo muy suave */
-    /*--white: #ffffff; */
+    --white: #ffffff;
     --text-dark: #333333;
     --text-light: #ffffff;
     --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --text_header: #4c4a4a; /* Texto del header con opacidad para suavizarlo */
 }
 
 /* --- RESET Y BASE --- */
@@ -54,7 +55,7 @@ nav ul {
 }
 
 nav a {
-    color: var(--white) !important; /* FORZAMOS COLOR BLANCO SIEMPRE */
+    color: var(--text_header) !important;
     text-decoration: none;
     font-weight: 500;
     padding: 10px 15px;
@@ -116,6 +117,35 @@ li img {
     height: auto;
     display: block;
     margin-bottom: 15px;
+}
+
+/* Project Details Card */
+.project-details-card {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.project-details-card p {
+    margin: 0.75rem 0;
+}
+
+.project-details-card strong {
+    color: var(--primary);
+}
+
+/* Category Tags */
+.category-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--white);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-right: 0.25rem;
 }
 
 /* --- FOOTER --- */
@@ -305,4 +335,80 @@ footer {
     text-align: center;
     color: #555555;
     border: 1px dashed #cccccc;
+}
+
+/* Projects List: Volunteer Actions Section */
+.volunteer-actions-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.volunteer-actions-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+}
+
+.volunteer-action-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 3px solid var(--accent);
+}
+
+.project-title {
+    flex: 1;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+/* Small Button Styles */
+.btn-sm {
+    display: inline-block;
+    padding: 0.4rem 0.875rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.btn-danger-outline {
+    display: inline-block;
+    background-color: transparent;
+    color: #dc3545;
+    padding: 0.4rem 0.875rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    border: 1px solid #dc3545;
+}
+
+.btn-danger-outline:hover {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+/* Status Badge */
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-active {
+    background-color: #d4edda;
+    color: #155724;
 }

@@ -16,6 +16,25 @@
             <li>No upcoming projects found.</li>
         <% } %>
     </ul>
+    
+    <% if (isLoggedIn && projects && projects.length > 0) { %>
+        <div class="volunteer-actions-section">
+            <h3 style="margin-top: 2rem; color: var(--primary);">Popular services now</h3>
+            <ul class="volunteer-actions-list">
+                <% projects.forEach(project => { %>
+                    <li class="volunteer-action-item">
+                        <span class="project-title"><%= project.title %></span>
+                        <% if (volunteerStatus[project.project_id]) { %>
+                            <span class="status-badge status-active">Volunteering</span>
+                            <a href="/project/<%= project.project_id %>/unvolunteer" class="btn-sm btn-danger-outline">Cancel</a>
+                        <% } else { %>
+                            <a href="/project/<%= project.project_id %>/volunteer" class="btn-sm btn-primary">Join</a>
+                        <% } %>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+    <% } %>
     <p><a href="/new-project">Add a New Service Project</a></p>
 </main>
 

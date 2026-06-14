@@ -38,7 +38,13 @@ const projectValidation = [
 const showProjectsPage = async (req, res) => {
     const projects = await getAllProjects();
     const title = 'Upcoming Service Projects';
-    res.render('projects', { title, projects });
+    let volunteerStatus = {};
+    if (req.session && req.session.user) {
+        for (const project of projects) {
+            volunteerStatus[project.project_id] = await checkVolunteerStatus(req.session.user.user_id, project.project_id);
+        }
+    }
+    res.render('projects', { title, projects, volunteerStatus });
 };  
 
 const showProjectDetailsPage = async (req, res) => {
